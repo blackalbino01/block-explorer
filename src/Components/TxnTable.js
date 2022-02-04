@@ -6,15 +6,20 @@ import { Table,
   TableHead,
   TableRow,
   Paper,
-  LinearProgress } from '@mui/material';
+  CircularProgress,
+  Box } from '@mui/material';
 
 
-const TxnTable = ({txnDatas}) => {
-
-  const [isLoading, setIsLoading] = useState(true);
+const TxnTable = ({txnDatas, isLoading}) => {
 
   const renderTable = () => {
-
+    if(isLoading){
+      return(
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
+      );
+    }
 
     const mapv = txnDatas.map((value,index) => {
       return (

@@ -24,6 +24,7 @@ const Block = () => {
   const [ miner, setMiner] = useState('');
   const [ totalDifficulty, setTotalDifficulty] = useState(null);
   const [ txns, setTxns] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   
    
   const getBlock = async () => {
@@ -36,12 +37,12 @@ const Block = () => {
 
 
     const arr = [];
-
+    setIsLoading(true);
     for(let i = 0; i < txnCount; i++){
       const txn = await web3.eth.getTransaction(block.transactions[i]);
       arr.push(txn);
     }
-
+    setIsLoading(false);
     setTxns(...txns,arr);
 
   };
@@ -65,7 +66,7 @@ const Block = () => {
             <Item><strong>Total Difficulty</strong>: {totalDifficulty} </Item>
           </Stack>
           <div>
-            <TxnTable txnDatas = {txns} />
+            <TxnTable txnDatas = {txns} isLoading = { isLoading } />
           </div>
         </Container>
     </React.Fragment>
