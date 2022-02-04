@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React from "react";
 import { Table,
   TableCell,
   TableBody,
@@ -6,8 +6,7 @@ import { Table,
   TableHead,
   TableRow,
   Paper,
-  CircularProgress,
-  Box } from '@mui/material';
+  CircularProgress } from '@mui/material';
 
 
 const TxnTable = ({txnDatas, isLoading}) => {
@@ -15,26 +14,30 @@ const TxnTable = ({txnDatas, isLoading}) => {
   const renderTable = () => {
     if(isLoading){
       return(
-        <Box sx={{ display: 'flex' }}>
-          <CircularProgress />
-        </Box>
+        <TableRow>
+          <TableCell>
+            <CircularProgress />
+          </TableCell>
+        </TableRow>
       );
     }
 
-    const mapv = txnDatas.map((value,index) => {
+    const descOrder = txnDatas.sort((a, b) => Number(b.value) - Number(a.value));
+
+    const populateData = descOrder.map((value,index) => {
       return (
         <TableRow key={index}
         sx= {{ '&:last-child td, &:last-child th': { border: 0 } }}>  
           <TableCell component="th" scope="row"> { value.hash} </TableCell>
           <TableCell align="left">{value.from}</TableCell>
           <TableCell align="left">{value.to}</TableCell>
-          <TableCell align="left">{value.value/ 10e18}</TableCell>
+          <TableCell align="left">{value.value / 10e18}</TableCell>
         </TableRow>
       );
 
     });
 
-    return mapv;
+    return populateData;
   };
 
   return (

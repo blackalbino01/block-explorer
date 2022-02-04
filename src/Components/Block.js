@@ -25,7 +25,6 @@ const Block = () => {
   const [ totalDifficulty, setTotalDifficulty] = useState(null);
   const [ txns, setTxns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
    
   const getBlock = async () => {
     const block = await web3.eth.getBlock('latest');
@@ -36,21 +35,20 @@ const Block = () => {
     setTotalDifficulty(block.totalDifficulty);
 
 
-    const arr = [];
+    const txnArr = [];
     setIsLoading(true);
     for(let i = 0; i < txnCount; i++){
       const txn = await web3.eth.getTransaction(block.transactions[i]);
-      arr.push(txn);
+      txnArr.push(txn);
     }
     setIsLoading(false);
-    setTxns(...txns,arr);
+    setTxns(txnArr);
 
   };
 
   useEffect(() => {
-
     getBlock();
-  }, []);
+  },[]);
 
   return (
     <React.Fragment>
