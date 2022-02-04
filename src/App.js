@@ -1,14 +1,15 @@
 import React from "react";
 import './App.css';
-import Web3 from 'web3';
 import Block from './Components/Block.js';
 
 const App = () => {
 
   return (
     
-    <div className="mainContainer">
-        Hello World!!
+    <div style={{textAlign: "center"}}>
+      <div style={{padding: "20px", backgroundColor: "#1976d2", color:"white"}}>
+        Block Explorer on Energi Network
+      </div>
         <Block/>
     </div>
   );

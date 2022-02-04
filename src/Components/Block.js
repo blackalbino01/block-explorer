@@ -23,7 +23,8 @@ const Block = () => {
   const [ noTxn, setNoTxn] = useState(null);
   const [ miner, setMiner] = useState('');
   const [ totalDifficulty, setTotalDifficulty] = useState(null);
-  const txns = [];
+  const [ txns, setTxns] = useState([]);
+  
    
   const getBlock = async () => {
     const block = await web3.eth.getBlock('latest');
@@ -33,11 +34,16 @@ const Block = () => {
     setMiner(block.miner);
     setTotalDifficulty(block.totalDifficulty);
 
+
+    const arr = [];
+
     for(let i = 0; i < txnCount; i++){
       const txn = await web3.eth.getTransaction(block.transactions[i]);
-      txns.push(txn);
+      arr.push(txn);
     }
-    console.log(txns);
+
+    setTxns(...txns,arr);
+
   };
 
   useEffect(() => {
@@ -49,8 +55,8 @@ const Block = () => {
     <React.Fragment>
       <CssBaseline/>
         <Container fixed>
-          <Button variant="contained" onClick = { getBlock }>
-            Request Latest block
+          <Button sx={{mt: 4, mb:6}} variant="contained" onClick = { getBlock }>
+            Request Latest block info
           </Button>
           <Stack spacing={2}>
             <Item><strong>Block Number</strong>: { blockNo } </Item>
@@ -59,7 +65,7 @@ const Block = () => {
             <Item><strong>Total Difficulty</strong>: {totalDifficulty} </Item>
           </Stack>
           <div>
-            <TxnTable txnDatas ={txns} />
+            <TxnTable txnDatas = {txns} />
           </div>
         </Container>
     </React.Fragment>
