@@ -31,7 +31,7 @@ const TxnTable = ({txnDatas, isLoading}) => {
           <TableCell component="th" scope="row"> { value.hash} </TableCell>
           <TableCell align="left">{value.from}</TableCell>
           <TableCell align="left">{value.to}</TableCell>
-          <TableCell align="left">{value.value / 10e18}</TableCell>
+          <TableCell align="left">{value.value / 10e17}</TableCell>
         </TableRow>
       );
 
@@ -48,7 +48,7 @@ const TxnTable = ({txnDatas, isLoading}) => {
             <TableCell><strong>Txn Hashes</strong></TableCell>
             <TableCell align="center"><strong>From</strong></TableCell>
             <TableCell align="center"><strong>To</strong></TableCell>
-            <TableCell align="center"><strong>Value(ether)</strong></TableCell>
+            <TableCell align="center"><strong>Value(NRG)</strong></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
